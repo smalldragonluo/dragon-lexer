@@ -3,6 +3,8 @@
  * @description Num 类
  */
 
+'use strict';
+
 const Token = require('./token');
 const utils = require('../lib/utils');
 

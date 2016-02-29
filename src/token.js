@@ -3,6 +3,8 @@
  * @description Token 类
  */
 
+'use strict';
+
 const utils = require('../lib/utils');
 
 function Mod(tag, line, lPos) {
