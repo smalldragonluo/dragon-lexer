@@ -8,8 +8,8 @@
 const Token = require('./token');
 const utils = require('../lib/utils');
 
-function Mod(value, line, lPos) {
-  this.super(Token.NUM, line, lPos);
+function Mod(value, line, startPos, endPos) {
+  this.super(Token.NUM, line, startPos, endPos);
   this._value = value;
 }
 

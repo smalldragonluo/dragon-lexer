@@ -8,8 +8,8 @@
 const Token = require('./token');
 const utils = require('../lib/utils');
 
-function Mod(lexeme, line, lPos) {
-  this.super(Token.ID, line, lPos);
+function Mod(lexeme, line, startPos, endPos) {
+  this.super(Token.ID, line, startPos, endPos);
   this._lexeme = lexeme;
 }
 

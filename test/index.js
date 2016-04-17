@@ -17,5 +17,5 @@ let scanner = new Lexer(code);
 let token;
 
 while (token = scanner.scan()) {
-  console.log(`line: ${token.line} lPos: ${token.lPos} tag: ${token.tag} value: ${token.value} lexeme: "${token.lexeme}"`);
+  console.log(`line: ${token.line} startPos: ${token.startPos} endPos: ${token.endPos} tag: ${token.tag} value: ${token.value} lexeme: "${token.lexeme}"`);
 }

@@ -7,10 +7,11 @@
 
 const utils = require('../lib/utils');
 
-function Mod(tag, line, lPos) {
+function Mod(tag, line, startPos, endPos) {
   this._tag = tag;
   this._line = line;
-  this._lPos = lPos;
+  this._startPos = startPos;
+  this._endPos = endPos;
 }
 
 Mod.prototype = {
@@ -20,8 +21,11 @@ Mod.prototype = {
   get line() {
     return this._line;
   },
-  get lPos() {
-    return this._lPos;
+  get startPos() {
+    return this._startPos;
+  },
+  get endPos() {
+    return this._endPos;
   }
 };
 

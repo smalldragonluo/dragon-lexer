@@ -12,11 +12,21 @@ const util = require('util');
 
 function Mod(str) {
   this._str = str;
+
+  // 向前看符号
   this._peek = ' ';
+
+  // 当前行数
   this._line = 0;
-  this._pos = 0;
-  this._lPos = 0;
-  this._lastLPos = 0;
+
+  // 当前字符索引位置
+  this._pos = -1;
+
+  // 当前行字符索引位置
+  this._linePos = -1;
+
+  // token 当前行开始索引位置
+  this._lineStartPos = -1;
 }
 
 Mod.prototype = {
@@ -31,6 +41,7 @@ Mod.prototype = {
       if (this._peek === null) {
         return null;
       } else if (this._peek !== ' ' && this._peek !== '\n') {
+        this._lineStartPos = this._linePos;
         break;
       }
     } while (true);
@@ -42,7 +53,7 @@ Mod.prototype = {
         value = value * 10 + parseInt(this._peek);
       }
 
-      return new Num(value, this._line - 1 > -1 ? this._line - 1 : 0, this._lastLPos);
+      return new Num(value, this._line, this._lineStartPos, this._linePos - 1);
     } else if (character.isLetter(this._peek)) {
       let lexeme = this._peek;
 
@@ -50,7 +61,7 @@ Mod.prototype = {
         lexeme += this._peek;
       }
 
-      return new Word(lexeme, this._line - 1 > -1 ? this._line - 1 : 0, this._lastLPos);
+      return new Word(lexeme, this._line, this._lineStartPos, this._linePos - 1);
     } else {
       throw new SyntaxError('unexpected token');
     }
@@ -60,15 +71,14 @@ Mod.prototype = {
    * @returns {*}
    */
   readChar: function() {
+    ++this._linePos;
+
     if (this._pos < this._str.length - 1) {
       ++this._pos;
-      this._lastLPos = this._lPos;
 
-      if (this._str[this._pos] === '\n') {
+      if (this._pos !== 0 && this._str[this._pos - 1] === '\n') {
         ++this._line;
-        this._lPos = -1;
-      } else {
-        ++this._lPos;
+        this._linePos = 0;
       }
 
       return this._str[this._pos];
